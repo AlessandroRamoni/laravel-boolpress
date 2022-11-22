@@ -8,7 +8,10 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
     routes: [
-        {path: "/", name: "home", component: PostsComponent}
+        {path: "/", name: "home", component: PostsComponent},
+
+        // rotta per tutti gli altri percorsi
+        {path: "/*", name: 'NotFound', component: NotFoundComponent}
     ],
 });
 

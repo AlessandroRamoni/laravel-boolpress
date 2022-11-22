@@ -53430,6 +53430,12 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "/",
     name: "home",
     component: _components_PostsComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  // rotta per tutti gli altri percorsi
+  {
+    path: "/*",
+    name: 'NotFound',
+    component: NotFoundComponent
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
