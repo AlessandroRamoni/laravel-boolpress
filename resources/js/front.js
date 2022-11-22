@@ -4,9 +4,13 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import router from './router';
+
 require('./bootstrap');
 
 window.Vue = require('vue');
+
+//window.axios = require('axios');
 
 /**
  * The following block of code may be used to automatically register your
@@ -31,5 +35,6 @@ import App from "./views/App";
 
 const app = new Vue({
     el: '#root',
-    render: (h)=>h(App)
+    render: (h)=>h(App),
+    router,
 });
