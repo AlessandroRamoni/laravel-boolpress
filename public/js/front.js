@@ -1964,6 +1964,12 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     posts: function posts() {
       return this.paginatedPosts.data;
+    },
+    currentPage: function currentPage() {
+      return this.paginatedPosts.current_page;
+    },
+    totalPages: function totalPages() {
+      return this.paginatedPosts.total;
     }
   },
   props: {
@@ -1973,6 +1979,9 @@ __webpack_require__.r(__webpack_exports__);
     showPost: function showPost(id) {
       console.log('ciao');
       this.$emit('clickedPost', id);
+    },
+    go: function go(url) {
+      this.$emit('requestPage', url);
     }
   }
 });
@@ -2011,19 +2020,32 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
     console.log('PostsComponent presente');
-    axios.get('/api/posts').then(function (_ref) {
-      var data = _ref.data;
-      if (data.success) {
-        _this.posts = data.results;
-      } else {
-        _this.errorMessage = data.error;
-      }
-      _this.loading = false;
-    });
+
+    // axios.get('/api/posts').then(({ data }) => {
+    //     if (data.success) {
+    //         this.posts = data.results;
+    //     } else {
+    //         this.errorMessage = data.error;
+    //     }
+    //     this.loading = false
+    // })
+
+    this.loadPage('/api/posts');
   },
   methods: {
+    loadPage: function loadPage(url) {
+      var _this = this;
+      axios.get(url).then(function (_ref) {
+        var data = _ref.data;
+        if (data.success) {
+          _this.posts = data.results;
+        } else {
+          _this.errorMessage = data.error;
+        }
+        _this.loading = false;
+      });
+    },
     showPost: function showPost(id) {
       var _this2 = this;
       console.log(id);
@@ -2152,7 +2174,21 @@ var render = function render() {
         }
       }
     }, [_vm._v(_vm._s(post.title))])]);
-  }), 0) : _c("div", [_vm._v("\n        Nessun post trovato, are you sure?\n    ")])]);
+  }), 0) : _c("div", [_vm._v("\n        Nessun post trovato, are you sure?\n    ")]), _vm._v(" "), _c("div", {
+    staticClass: "my3"
+  }, [_c("button", {
+    on: {
+      click: function click($event) {
+        return _vm.go(_vm.paginatedPosts.prev_page_url);
+      }
+    }
+  }, [_vm._v("Indietro")]), _vm._v("\n        " + _vm._s(_vm.currentPage) + "/" + _vm._s(_vm.totalPages) + "\n        "), _c("button", {
+    on: {
+      click: function click($event) {
+        return _vm.go(_vm.paginatedPosts.next_page_url);
+      }
+    }
+  }, [_vm._v("Avanti")])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2189,7 +2225,8 @@ var render = function render() {
       paginatedPosts: _vm.posts
     },
     on: {
-      clickedPost: _vm.showPost
+      clickedPost: _vm.showPost,
+      requestPage: _vm.loadPage
     }
   })], 1);
 };

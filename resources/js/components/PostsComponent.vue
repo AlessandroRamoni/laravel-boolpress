@@ -14,7 +14,7 @@
 
         <!-- <PostListComponent v-else :posts="posts" @clickedPost="showPost" /> -->
 
-        <PostListPaginatedComponent v-else :paginatedPosts="posts" @clickedPost="showPost" />
+        <PostListPaginatedComponent v-else :paginatedPosts="posts" @clickedPost="showPost" @requestPage="loadPage" />
 
 
         <!-- <div v-else-if="posts.length > 0">
@@ -58,17 +58,29 @@ export default {
 
 
 
-        axios.get('/api/posts').then(({ data }) => {
-            if (data.success) {
-                this.posts = data.results;
-            } else {
-                this.errorMessage = data.error;
-            }
-            this.loading = false
-        })
+        // axios.get('/api/posts').then(({ data }) => {
+        //     if (data.success) {
+        //         this.posts = data.results;
+        //     } else {
+        //         this.errorMessage = data.error;
+        //     }
+        //     this.loading = false
+        // })
+
+        this.loadPage('/api/posts')
 
     },
     methods: {
+        loadPage(url) {
+            axios.get(url).then(({ data }) => {
+                if (data.success) {
+                    this.posts = data.results;
+                } else {
+                    this.errorMessage = data.error;
+                }
+                this.loading = false
+            })
+        },
         showPost(id) {
             console.log(id);
             this.loading = true;

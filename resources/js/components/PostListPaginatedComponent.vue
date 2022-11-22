@@ -9,6 +9,12 @@
         <div v-else>
             Nessun post trovato, are you sure?
         </div>
+
+        <div class="my3">
+            <button @click="go(paginatedPosts.prev_page_url)">Indietro</button>
+            {{ currentPage }}/{{ totalPages }}
+            <button @click="go(paginatedPosts.next_page_url)">Avanti</button>
+        </div>
     </div>
 
 </template>
@@ -26,6 +32,12 @@ export default {
     computed: {
         posts() {
             return this.paginatedPosts.data;
+        },
+        currentPage() {
+            return this.paginatedPosts.current_page;
+        },
+        totalPages() {
+            return this.paginatedPosts.total;
         }
     },
     props: {
@@ -36,6 +48,9 @@ export default {
             console.log('ciao');
             this.$emit('clickedPost', id);
 
+        },
+        go(url) {
+            this.$emit('requestPage', url);
         }
     }
 
