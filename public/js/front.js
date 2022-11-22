@@ -2157,8 +2157,43 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_PostListPaginatedComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/PostListPaginatedComponent.vue */ "./resources/js/components/PostListPaginatedComponent.vue");
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'PostsIndexComponent'
+  name: 'PostsIndexComponent',
+  data: function data() {
+    return {
+      postPageResult: undefined,
+      loading: true,
+      errorMessage: '',
+      detail: undefined
+    };
+  },
+  mounted: function mounted() {
+    this.loadPage('/api/posts');
+  },
+  methods: {
+    loadPage: function loadPage(url) {
+      var _this = this;
+      axios.get(url).then(function (_ref) {
+        var data = _ref.data;
+        if (data.success) {
+          _this.postPageResult = data.results;
+        } else {
+          _this.errorMessage = data.error;
+        }
+        _this.loading = false;
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    },
+    showPost: function showPost(id) {
+      console.log('hai cliccato');
+    }
+  },
+  components: {
+    PostListPaginatedComponent: _components_PostListPaginatedComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
 });
 
 /***/ }),
@@ -2482,7 +2517,25 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_vm._v("\n    PostIndex\n")]);
+  return _c("div", [_vm.loading ? _c("div", [_vm._v("\n        Waiting...\n    ")]) : _vm.detail != undefined ? _c("div", [_c("h2", [_vm._v("Dettagli:")]), _vm._v(" "), _c("PostComponent", {
+    attrs: {
+      post: _vm.detail
+    }
+  }), _vm._v(" "), _c("button", {
+    on: {
+      click: function click($event) {
+        _vm.detail = undefined;
+      }
+    }
+  }, [_vm._v("Indietro")])], 1) : _vm.errorMessage.length > 0 ? _c("div", [_vm._v("\n        " + _vm._s(_vm.errorMessage) + "\n    ")]) : _c("PostListPaginatedComponent", {
+    attrs: {
+      paginatedPosts: _vm.postPageResult
+    },
+    on: {
+      clickedPost: _vm.showPost,
+      requestPage: _vm.loadPage
+    }
+  })], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
