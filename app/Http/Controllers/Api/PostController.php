@@ -19,7 +19,7 @@ class PostController extends Controller
         //
 
         try {
-             $posts = Post::all();
+             $posts = Post::paginate(3);
             $data = [
             'results' => $posts,
             'success' => true

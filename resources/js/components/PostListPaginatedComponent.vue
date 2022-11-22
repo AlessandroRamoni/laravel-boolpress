@@ -1,0 +1,47 @@
+<template>
+    <div>
+        <div v-if="posts.length > 0">
+            <div style="margin-bottom: 20px" v-for="post in posts" :key="post.id">
+                <span @click="showPost(post.id)">{{ post.title }}</span>
+            </div>
+        </div>
+
+        <div v-else>
+            Nessun post trovato, are you sure?
+        </div>
+    </div>
+
+</template>
+
+<script>
+
+
+export default {
+    name: 'PostListPaginatedComponent',
+    // data() {
+    //     return {
+    //         posts: []
+    //     }
+    // },
+    computed: {
+        posts() {
+            return this.paginatedPosts.data;
+        }
+    },
+    props: {
+        paginatedPosts: Object
+    },
+    methods: {
+        showPost(id) {
+            console.log('ciao');
+            this.$emit('clickedPost', id);
+
+        }
+    }
+
+}
+</script>
+
+<style lang="scss" scoped>
+
+</style>
