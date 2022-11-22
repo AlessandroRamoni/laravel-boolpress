@@ -2,7 +2,8 @@ import Vue from "vue";
 
 import VueRouter from "vue-router";
 
-import PostsComponent from "./components/PostsComponent";
+import PostsComponent from "./pages/PostsComponent";
+import NotFoundComponent from "./pages/NotFoundComponent";
 
 Vue.use(VueRouter);
 
