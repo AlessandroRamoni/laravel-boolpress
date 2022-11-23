@@ -19,10 +19,10 @@ class PostController extends Controller
         //
 
         try {
-             $posts = Post::paginate(3);
+            $posts = Post::where('id', '>',0)->paginate(5);
             $data = [
             'results' => $posts,
-            'success' => true
+            'success' => count($posts) > 0
         ];
         } catch (Error $e) {
             $data = [
