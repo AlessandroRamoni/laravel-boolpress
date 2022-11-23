@@ -16,12 +16,17 @@ const router = new VueRouter({
         {path: "/", name: "home", component: HomeComponent},
 
         {
-            path: "/postsprops: route => ({ query: route.query.q })",
+            path: "/posts",
             name: "posts-index",
             component: PostsIndexComponent,
             props: (route) => ({ page: route.query.page }),
 
         },
+        // {
+        //     path: "/posts/:slug",
+        //     name: "posts-show",
+        //     component: PostsShow,
+        // },
         {path: "/about", name: "about", component: AboutComponent},
 
         {path: "/contacts", name: "contacts", component: ContactsComponent},
