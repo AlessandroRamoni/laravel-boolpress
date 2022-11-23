@@ -14,9 +14,20 @@ Vue.use(VueRouter);
 const router = new VueRouter({
     routes: [
         {path: "/", name: "home", component: HomeComponent},
+
+        {
+            path: "/postsprops: route => ({ query: route.query.q })",
+            name: "posts-index",
+            component: PostsIndexComponent,
+            props: (route) => ({ page: route.query.page }),
+
+        },
         {path: "/about", name: "about", component: AboutComponent},
+
         {path: "/contacts", name: "contacts", component: ContactsComponent},
-        {path: "/posts", name: "posts-index", component: PostsIndexComponent},
+
+
+
 
         // rotta per tutti gli altri percorsi, sempre all'ultimo posto
         {path: "/*", name: 'NotFound', component: NotFoundComponent}

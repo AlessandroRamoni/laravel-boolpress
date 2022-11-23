@@ -54834,6 +54834,15 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: "home",
     component: _pages_HomeComponent__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, {
+    path: "/postsprops: route => ({ query: route.query.q })",
+    name: "posts-index",
+    component: _pages_PostsIndexComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
+    props: function props(route) {
+      return {
+        page: route.query.page
+      };
+    }
+  }, {
     path: "/about",
     name: "about",
     component: _pages_AboutComponent__WEBPACK_IMPORTED_MODULE_4__["default"]
@@ -54841,10 +54850,6 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "/contacts",
     name: "contacts",
     component: _pages_ContactsComponent__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }, {
-    path: "/posts",
-    name: "posts-index",
-    component: _pages_PostsIndexComponent__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   // rotta per tutti gli altri percorsi, sempre all'ultimo posto
   {
