@@ -2,7 +2,7 @@
     <div>
         <div v-if="posts.length > 0">
             <div style="margin-bottom: 20px" v-for="post in posts" :key="post.id">
-                <span @click="showPost(post.id)">{{ post.title }}</span>
+                <span class="container" @click="showPost(post.id)">{{ post.title }}</span>
             </div>
         </div>
 
@@ -33,5 +33,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.container {
+    margin-top: 30px;
+}
 </style>

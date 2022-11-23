@@ -1,6 +1,6 @@
 <template>
     <div v-if="posts.length > 0">
-        <div v-for="post in posts" :key="post.id">
+        <div class="mt-20 " v-for="post in posts" :key="post.id">
             <span @click="showPost(post.slug)">{{ post.title }}</span>
         </div>
 
@@ -68,6 +68,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.mt-20 {
+    margin-top: 20px;
+}
+
 button.disable {
     opacity: 0.5;
     pointer-events: none;
